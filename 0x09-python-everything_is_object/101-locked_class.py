@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """
-
-A locked class that only lets the user dynamically create 
-the instance attribute 'first_name'
-
+This is a module that containts a clas that avoids
+dynmaically created attributes
 """
 
 
