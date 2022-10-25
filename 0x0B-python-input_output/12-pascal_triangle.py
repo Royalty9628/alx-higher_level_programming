@@ -1,14 +1,27 @@
 #!/usr/bin/python3
-
-
 def pascal_triangle(n):
-    """Prints the n-pascal triangle"""
+    """ Function that returns the pascal triangle
+    Args:
+        n: number of lines
+    Returns:
+        lista: a lista with the pascal triangle
+    """
+
     lista = []
-    if n <= 0:
-        return lista
-    for i in range(0, n):
-        lista.append([1] * (i + 1))
-        if i >= 2:
-            for j in range(1, len(lista[i]) - 1):
-                lista[i][j] = lista[i - 1][j] + lista[i - 1][j - 1]
+    prev = []
+
+    for i in range(n):
+        res_list = []
+        p1 = -1
+        p2 = 0
+        for j in range(len(prev) + 1):
+            if p1 == -1 or p2 == len(prev):
+                res_list += [1]
+            else:
+                res_list += [prev[p1] + prev[p2]]
+            p1 += 1
+            p2 += 1
+        lista.append(res_list)
+        prev = res_list[:]
+
     return lista
