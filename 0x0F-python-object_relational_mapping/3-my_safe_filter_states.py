@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Script that takes in an argument and displays all values in the states
-table of hbtn_0e_0_usa where name matches the argument
+Filter states by user input safe from MySQL injections!
+It takes in an argument and displays all values in the states table
 """
 
 import MySQLdb
@@ -13,8 +13,8 @@ if __name__ == "__main__":
 
     db_cursor = db.cursor()
 
-    db_cursor.execute("SELECT * FROM states WHERE name LIKE BINARY '{}' 
-            ORDER BY states.id ASC".format(argv[4])
+    db_cursor.execute("SELECT * FROM states WHERE name = %s", [argv[4]])
+
 
     for state in cursor.fetchall():
         print(state)
