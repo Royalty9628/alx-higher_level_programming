@@ -12,11 +12,8 @@ if __name__ == "__main__":
                          passwd=argv[2], db=argv[3])
 
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states WHERE states.name = %s\
-             ORDER BY states.id ASC", [argv[4]])
-    
-    for state in cursor.fetchall():
-        print(state)
+    cursor.execute("SELECT * FROM `states`")
+    [print(state) for state in cursor.fetchall() if state[1] == sys.argv[4]]
     
     cursor.close()
     db.close()
