@@ -7,20 +7,18 @@ table of hbtn_0e_0_usa where name matches the argument
 import MySQLdb
 from sys import argv
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    db = MySQLdb.connect(host="localhost", port=3306, user=argv[1],
+                         passwd=argv[2], db=argv[3])
 
-    db = db.connect(host="localhost", port=3306,
-                            user=argv[1], passwd=argv[2], db=argv[3])
-    db_cursor = db.cursor()
+    cursor = db.cursor()
 
-    db_cursor.execute(
-        "SELECT * FROM states WHERE name LIKE BINARY '{}' ORDER BY \
-                        states.id ASC".format(argv[4]))
+    db_query = "SELECT * FROM states WHERE name LIKE BINARY '{}'".format(argv[4])
+    cursor.execute(db_query)
 
-    rows_selected = db_cursor.fetchall()
+    rows = cursor.fetchall()
+    for i in rows:
+        print(i)
 
-    for row in rows_selected:
-        print(row)
-
-    db_cursor.close()
+    cursor.close()
     db.close()
