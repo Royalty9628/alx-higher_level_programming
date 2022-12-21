@@ -1,26 +1,23 @@
 #!/usr/bin/python3
 """
-Lists all cities from the database
+Script that Lists all cities from the database
 """
 
 import MySQLdb
 from sys import argv
 
 if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", port=3306, user=argv[1],
-                         passwd=argv[2], db=argv[3])
+    db = MySQLdb.connect(host="localhost",
+                         user=argv[1], passwd=argv[2], db=argv[3])
 
-    db_cursor = db.cursor()
-
-    db_cursor.execute("SELECT cities.id, cities.name, states.name\
+    cursor = db.cursor()
+    db_query = "SELECT cities.id, cities.name, states.name\
              FROM cities JOIN states\
-             WHERE cities.state_id = states.id")
+             WHERE cities.state_id = states.id"
+    cursor.execute(db_query)
 
-     rows_selected = db_cursor.fetchall()
+    for state in cursor.fetchall():
+        print(state)
 
-    if rows_selected is not None:
-        for row in rows_selected:
-            print(rows_selected)
-
-    db_cursor.close()
+    cursor.close()
     db.close()
